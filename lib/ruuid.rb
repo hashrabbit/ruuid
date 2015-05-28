@@ -1,5 +1,4 @@
-require "ruuid/version"
+require 'ruuid/version'
 
-module Ruuid
-  # Your code goes here...
+module RUUID
 end

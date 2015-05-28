@@ -5,7 +5,7 @@ require 'ruuid/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ruuid'
-  spec.version       = Ruuid::VERSION
+  spec.version       = RUUID::VERSION
   spec.authors       = ['Gabe Evans']
   spec.email         = ['gabe@ga.be']
 

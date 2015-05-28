@@ -1,3 +1,3 @@
-module Ruuid
-  VERSION = "0.1.0"
+module RUUID
+  VERSION = '0.1.0'.freeze
 end
