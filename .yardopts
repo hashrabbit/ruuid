@@ -1,0 +1,7 @@
+--embed-mixin RUUID::Generator
+--no-private
+--protected
+-
+CODE_OF_CONDUCT.md
+LICENSE.txt
+README.md
