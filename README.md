@@ -22,9 +22,25 @@ Or install it yourself as:
 
     $ gem install ruuid
 
-## Usage
+## Example Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'ruuid'
+
+uuid = RUUID.generate
+# => <RUUID::UUID:0x70168845476220 data=7cc9f80c-c2e2-4d03-ad35-1e3112dc77de>
+
+uuid.version
+# => 4
+
+uuid.to_s
+# => "7cc9f80c-c2e2-4d03-ad35-1e3112dc77de"
+uuid.to_s(:compact)
+# => "7cc9f80cc2e24d03ad351e3112dc77de"
+```
+
+See [API documentation](http://www.rubydoc.info/docs/ruuid) for
+additional information.
 
 ## Development
 
