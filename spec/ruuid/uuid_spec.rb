@@ -1,8 +1,12 @@
 require 'spec_helper'
 
 describe RUUID::UUID do
-  subject(:uuid) do
+  let(:uuid) do
     RUUID.generate
+  end
+
+  subject do
+    uuid
   end
 
   let(:other) do
@@ -17,6 +21,65 @@ describe RUUID::UUID do
   describe '.new' do
     it 'raises RuntimeError' do
       expect { RUUID::UUID.new }.to raise_error(RuntimeError)
+    end
+  end
+
+  describe '#to_s' do
+    subject(:stringified) do
+      uuid.to_s
+    end
+
+    let(:uuid) do
+      RUUID::UUID.from_data "\xff"*16
+    end
+
+    it 'returns formatted data' do
+      expect(stringified).to eq('ffffffff-ffff-ffff-ffff-ffffffffffff')
+    end
+  end
+
+  describe '#to_json' do
+    subject(:json) do
+      uuid.to_json
+    end
+
+    let(:uuid) do
+      RUUID::UUID.from_data "\x0"*16
+    end
+
+    it 'returns JSON-encoded data' do
+      expect(json).to eq('"00000000-0000-0000-0000-000000000000"')
+    end
+  end
+
+  describe '#inspect' do
+    subject(:inspect) do
+      uuid.inspect
+    end
+
+    it 'includes class name' do
+      expect(inspect).to include('RUUID::UUID')
+    end
+
+    it 'includes object ID' do
+      expect(inspect).to include(uuid.object_id.to_s)
+    end
+
+    it 'includes stringified data' do
+      expect(inspect).to include(uuid.to_s)
+    end
+  end
+
+  describe '#marshal_dump' do
+    it 'returns data' do
+      expect(uuid.marshal_dump).to eq(uuid.data)
+    end
+  end
+
+  describe '#marshal_load' do
+    it 'sets data' do
+      uuid.marshal_load('bacon')
+      expect(uuid.data).to eq('bacon')
     end
   end
 
