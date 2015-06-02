@@ -9,8 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Gabe Evans']
   spec.email         = ['gabe@ga.be']
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{RUUID (Ruby UUID) parses, generates, and represents RFC 4122 universally unique identifiers.}
   spec.homepage      = 'https://github.com/hashrabbit/ruuid'
   spec.license       = 'MIT'
 
