@@ -34,10 +34,12 @@ module RUUID
       "<#{self.class}:0x#{object_id} data=#{to_s}>"
     end
 
+    # @private
     def marshal_dump
       data
     end
 
+    # @private
     def marshal_load(data)
       @data = data.dup.freeze
     end
