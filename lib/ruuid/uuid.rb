@@ -1,5 +1,7 @@
 module RUUID
   class UUID
+    include Comparable
+
     # @private
     def self.from_data(data)
       uuid = allocate
@@ -38,6 +40,26 @@ module RUUID
 
     def marshal_load(data)
       @data = data.dup.freeze
+    end
+
+    def hash
+      data.hash
+    end
+
+    def ==(other)
+      return super unless other.respond_to?(:data)
+      data == other.data
+    end
+    alias_method :eql?, :==
+
+    def ===(other)
+      return super unless other.respond_to?(:to_str)
+      to_str === other.to_str
+    end
+
+    def <=>(other)
+      return super unless other.respond_to?(:data)
+      data <=> other.data
     end
 
     def version
