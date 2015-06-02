@@ -6,6 +6,7 @@ module RUUID
     def self.from_data(data)
       uuid = allocate
       uuid.instance_variable_set :@data, data.dup.freeze
+      uuid.validate
       uuid
     end
 
@@ -42,6 +43,7 @@ module RUUID
     # @private
     def marshal_load(data)
       @data = data.dup.freeze
+      validate
     end
 
     def hash
@@ -66,6 +68,17 @@ module RUUID
 
     def version
       data.bytes[6] >> 4
+    end
+
+    # @private
+    def validate
+      unless data.length == 16
+        raise InvalidUUIDError, 'Invalid UUID length'
+      end
+
+      unless data.bytes[8] >> 6 == 2
+        raise InvalidUUIDError, 'Invalid UUID variant'
+      end
     end
   end # UUID
 end # RUUID

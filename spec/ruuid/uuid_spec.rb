@@ -30,11 +30,11 @@ describe RUUID::UUID do
     end
 
     let(:uuid) do
-      RUUID::UUID.from_data "\xff"*16
+      RUUID::UUID.from_data "\x00\x00\x00\x00\x00\x00\x00\x00\x80\x00\x00\x00\x00\x00\x00\x00"
     end
 
     it 'returns formatted data' do
-      expect(stringified).to eq('ffffffff-ffff-ffff-ffff-ffffffffffff')
+      expect(stringified).to eq('00000000-0000-0000-8000-000000000000')
     end
   end
 
@@ -44,11 +44,11 @@ describe RUUID::UUID do
     end
 
     let(:uuid) do
-      RUUID::UUID.from_data "\x0"*16
+      RUUID::UUID.from_data "\x00\x00\x00\x00\x00\x00\x00\x00\xa0\x00\x00\x00\x00\x00\x00\x00"
     end
 
     it 'returns JSON-encoded data' do
-      expect(json).to eq('"00000000-0000-0000-0000-000000000000"')
+      expect(json).to eq('"00000000-0000-0000-a000-000000000000"')
     end
   end
 
@@ -77,9 +77,9 @@ describe RUUID::UUID do
   end
 
   describe '#marshal_load' do
-    it 'sets data' do
-      uuid.marshal_load('bacon')
-      expect(uuid.data).to eq('bacon')
+    it 'deserializes from data' do
+      uuid.marshal_load("L\xDDk\x97\xE6\xE9Ji\x839\xBF\xAAod%V")
+      expect(uuid.to_s).to eq('4cdd6b97-e6e9-4a69-8339-bfaa6f642556')
     end
   end
 
@@ -87,16 +87,16 @@ describe RUUID::UUID do
   describe '#version' do
     let(:uuid_strings) do
       {
-        'ffffffff-ffff-0fff-ffff-ffffffffffff' => 0,
-        'ffffffff-ffff-1fff-ffff-ffffffffffff' => 1,
-        'ffffffff-ffff-2fff-ffff-ffffffffffff' => 2,
-        'ffffffff-ffff-3fff-ffff-ffffffffffff' => 3,
-        'ffffffff-ffff-4fff-ffff-ffffffffffff' => 4,
-        'ffffffff-ffff-5fff-ffff-ffffffffffff' => 5,
-        'ffffffff-ffff-6fff-ffff-ffffffffffff' => 6,
-        'ffffffff-ffff-7fff-ffff-ffffffffffff' => 7,
-        'ffffffff-ffff-8fff-ffff-ffffffffffff' => 8,
-        'ffffffff-ffff-9fff-ffff-ffffffffffff' => 9,
+        'ffffffff-ffff-0fff-8fff-ffffffffffff' => 0,
+        'ffffffff-ffff-1fff-9fff-ffffffffffff' => 1,
+        'ffffffff-ffff-2fff-afff-ffffffffffff' => 2,
+        'ffffffff-ffff-3fff-bfff-ffffffffffff' => 3,
+        'ffffffff-ffff-4fff-8fff-ffffffffffff' => 4,
+        'ffffffff-ffff-5fff-9fff-ffffffffffff' => 5,
+        'ffffffff-ffff-6fff-afff-ffffffffffff' => 6,
+        'ffffffff-ffff-7fff-bfff-ffffffffffff' => 7,
+        'ffffffff-ffff-8fff-8fff-ffffffffffff' => 8,
+        'ffffffff-ffff-9fff-9fff-ffffffffffff' => 9,
       }
     end
 

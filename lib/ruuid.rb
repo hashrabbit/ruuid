@@ -9,6 +9,8 @@ require 'ruuid/uuid'
 module RUUID
   extend self
 
+  class InvalidUUIDError < StandardError; end
+
   attr_accessor :default_generator
   self.default_generator = Generators::V4
 
