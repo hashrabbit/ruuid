@@ -31,7 +31,12 @@ module RUUID
     end
 
     def generate
-      UUID.from_data(masked_bytes)
+      raw_bytes.tap { |bytes|
+        # Mask version
+        bytes[6] = (bytes[6] & 0x0f) | (version << 4)
+        # Mask variant
+        bytes[8] = (bytes[8] & 0x3f) | 0x80
+      }.collect(&:chr).join
     end
 
     private
@@ -41,15 +46,6 @@ module RUUID
         raise NotImplementedError, "#{self.class} does not specify a data source"
       end
       source.call.bytes
-    end
-
-    def masked_bytes
-      raw_bytes.tap { |bytes|
-        # Mask version
-        bytes[6] = (bytes[6] & 0x0f) | (version << 4)
-        # Mask variant
-        bytes[8] = (bytes[8] & 0x3f) | 0x80
-      }.collect(&:chr).join
     end
   end # Generator
 end # RUUID

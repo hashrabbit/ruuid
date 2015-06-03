@@ -5,8 +5,8 @@ describe RUUID::Generator do
     Class.new do
       include RUUID::Generator
 
-      version 0
-      source ->{ "\xff" * 16 }
+      version 1
+      source ->{ "\x0" * 16 }
     end
   end
 
@@ -67,10 +67,11 @@ describe RUUID::Generator do
         generator.generate
       end
 
-      it 'returns new RUUID::UUID' do
-        expect(uuid).to be_a(RUUID::UUID)
-        expect(uuid.version).to eq(uuid.version)
-        expect(uuid.to_s).to eq('ffffffff-ffff-0fff-bfff-ffffffffffff')
+      it 'returns RFC 4122-compliant binary string' do
+        expect(uuid).to eq(
+          "\x0\x0\x0\x0\x0\x0\x10\x0\x80\x0\x0\x0\x0\x0\x0\x0".force_encoding(Encoding::BINARY)
+        )
+        expect(uuid.encoding).to eq(Encoding::BINARY)
       end
     end
   end

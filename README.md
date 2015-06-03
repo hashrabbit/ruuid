@@ -30,7 +30,7 @@ Or install it yourself as:
 ```ruby
 require 'ruuid'
 
-uuid = RUUID.generate
+uuid = RUUID::UUID.new
 # => <RUUID::UUID:0x70168845476220 data=7cc9f80c-c2e2-4d03-ad35-1e3112dc77de>
 
 uuid.version

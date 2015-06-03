@@ -16,8 +16,4 @@ module RUUID
 
   attr_accessor :default_format
   self.default_format = :canonical
-
-  def generate
-    default_generator.generate
-  end
 end

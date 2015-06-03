@@ -2,21 +2,13 @@ module RUUID
   class UUID
     include Comparable
 
-    # @private
-    def self.from_data(data)
-      uuid = allocate
-      uuid.instance_variable_set :@data, data.dup.freeze
-      uuid.validate
-      uuid
-    end
-
     def self.parse(string)
-      from_data(Parser.parse(string))
+      new(Parser.parse(string))
     end
 
-    # @private
-    def initialize
-      raise RuntimeError, 'RUUID::UUID.new is not allowed. Use RUUID.generate instead.'
+    def initialize(data = RUUID.default_generator.generate)
+      @data = normalize(data)
+      validate
     end
 
     # @private
@@ -79,6 +71,12 @@ module RUUID
       unless data.bytes[8] >> 6 == 2
         raise InvalidUUIDError, 'Invalid UUID variant'
       end
+    end
+
+    private
+
+    def normalize(data)
+      data.dup.force_encoding(Encoding::BINARY).freeze
     end
   end # UUID
 end # RUUID

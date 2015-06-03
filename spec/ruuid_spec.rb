@@ -12,11 +12,4 @@ describe RUUID do
       expect(RUUID.default_generator).to eq(RUUID::Generators::V4)
     end
   end
-
-  describe '.generate' do
-    it 'delegates to .default_generator' do
-      expect(RUUID.default_generator).to receive(:generate)
-      RUUID.generate
-    end
-  end
 end

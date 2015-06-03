@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RUUID::Generators::V4 do
   subject(:uuid) do
-    RUUID::Generators::V4.generate
+    RUUID::UUID.new(RUUID::Generators::V4.generate)
   end
 
   it 'generates version 4 UUIDs' do

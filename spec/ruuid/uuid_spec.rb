@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RUUID::UUID do
   let(:uuid) do
-    RUUID.generate
+    RUUID::UUID.new
   end
 
   subject do
@@ -17,10 +17,25 @@ describe RUUID::UUID do
     double(String)
   end
 
-
   describe '.new' do
-    it 'raises RuntimeError' do
-      expect { RUUID::UUID.new }.to raise_error(RuntimeError)
+    subject(:uuid) do
+      RUUID::UUID.new(data)
+    end
+
+    let(:data) do
+      RUUID.default_generator.generate.force_encoding(Encoding::UTF_8)
+    end
+
+    it 'clones data' do
+      expect(uuid.data.object_id).not_to eq(data.object_id)
+    end
+
+    it 'freezes data' do
+      expect(uuid.data).to be_frozen
+    end
+
+    it 'forces binary encoding' do
+      expect(uuid.data.encoding).to eq(Encoding::BINARY)
     end
   end
 
@@ -30,7 +45,7 @@ describe RUUID::UUID do
     end
 
     let(:uuid) do
-      RUUID::UUID.from_data "\x00\x00\x00\x00\x00\x00\x00\x00\x80\x00\x00\x00\x00\x00\x00\x00"
+      RUUID::UUID.new("\x0\x0\x0\x0\x0\x0\x0\x0\x80\x0\x0\x0\x0\x0\x0\x0")
     end
 
     it 'returns formatted data' do
@@ -44,7 +59,7 @@ describe RUUID::UUID do
     end
 
     let(:uuid) do
-      RUUID::UUID.from_data "\x00\x00\x00\x00\x00\x00\x00\x00\xa0\x00\x00\x00\x00\x00\x00\x00"
+      RUUID::UUID.new("\x0\x0\x0\x0\x0\x0\x0\x0\xa0\x0\x0\x0\x0\x0\x0\x0")
     end
 
     it 'returns JSON-encoded data' do
