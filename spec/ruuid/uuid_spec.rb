@@ -120,26 +120,26 @@ describe RUUID::UUID do
     end
   end
 
-  %i[== eql?].each do |method_name|
-    describe "##{method_name}" do
+  %i[== eql?].each do |comparator|
+    describe "##{comparator}" do
       context 'when other respond to #data' do
         context 'when identical #data' do
           it 'returns true' do
             expect(uuid).to receive(:data).and_return(data)
-            expect(uuid == other).to be_truthy
+            expect(uuid.send(comparator, other)).to be_truthy
           end
         end
 
         context 'when not identical #data' do
           it 'returns false' do
-            expect(uuid == other).to be_falsy
+            expect(uuid.send(comparator, other)).to be_falsy
           end
         end
       end
 
       context 'when other not respond to #data' do
         it 'returns false' do
-          expect(uuid == 'foo').to be_falsy
+          expect(uuid.send(comparator, 'foo')).to be_falsy
         end
       end
     end
