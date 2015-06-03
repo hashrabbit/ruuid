@@ -11,7 +11,6 @@ module RUUID
       validate
     end
 
-    # @private
     attr_reader :data
 
     def to_s(format = RUUID.default_format)
@@ -62,7 +61,8 @@ module RUUID
       data.bytes[6] >> 4
     end
 
-    # @private
+    private
+
     def validate
       unless data.length == 16
         raise InvalidUUIDError, 'Invalid UUID length'
@@ -72,8 +72,6 @@ module RUUID
         raise InvalidUUIDError, 'Invalid UUID variant'
       end
     end
-
-    private
 
     def normalize(data)
       data.dup.force_encoding(Encoding::BINARY).freeze
