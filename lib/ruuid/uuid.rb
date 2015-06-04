@@ -65,11 +65,11 @@ module RUUID
 
     def validate
       unless data.length == 16
-        raise InvalidUUIDError, 'Invalid UUID length'
+        raise InvalidUUIDError, "Invalid UUID length: #{data.inspect}"
       end
 
       unless data.bytes[8] >> 6 == 2
-        raise InvalidUUIDError, 'Invalid UUID variant'
+        raise InvalidUUIDError, "Invalid UUID variant: #{data.inspect}"
       end
     end
 
