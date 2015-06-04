@@ -3,17 +3,14 @@ module RUUID
   module Parser
     extend self
 
-    BLACKLIST = /[^a-f0-9]/i
+    FORMAT = /^\h{8}-?\h{4}-?\h{4}-?[89ab]\h{3}-?\h{12}$/i
 
     def parse(string)
-      string = sanitize(string)
-      [string].pack('H*')
-    end
-
-    private
-
-    def sanitize(string)
-      string.gsub(BLACKLIST, '')
+      if string[FORMAT]
+        [string.gsub(/\H/, '')].pack('H*')
+      else
+        string
+      end
     end
   end # Parser
 end # RUUID
