@@ -18,6 +18,10 @@ module RUUID
     end
     alias_method :to_str, :to_s
 
+    def as_json(*)
+      to_s
+    end
+
     def to_json(*args)
       to_s(*args).to_json
     end
