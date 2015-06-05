@@ -1,9 +1,12 @@
 language: ruby
 sudo: false
 rvm:
-  - 2.2.2
-  - ruby-head
+- 2.2.2
+- ruby-head
 matrix:
   allow_failures:
-    - rvm: ruby-head
+  - rvm: ruby-head
   fast_finish: true
+notifications:
+  slack:
+    secure: qr8tCKNCb4hg32CTS1MO0ReYZN37rsiTqx3wDE3zdAjV2y8qd2FtzLLpG8znFrT9zwzDO70fK3rTpzw7s3FtgnMEeT6HRoA2PvmTGg2xbICKyGmWHDvwyu5WePwHmEVbRtDDcpYNwpGvFVI92nUMK/fdHKk7BApWoJW4fg2AayyXqH/g3UxnSJgjeFWkOFhvRGGTDGbRT9t7SjrGKmbQDHP6lWF/wKzILXSXQubosf2/4Go+pCqpsk2/Feu/KK6vNkRtAXQtYFHWC7Ad8uhzifF9H5RxjvOZRxqP4ZKuurdy1rImg+7gxa3l1xkF8UVDHhxOg1y0P2znXQuvrmoqYhu9vdylOroXQfROjnFMj1pCxwVoj8rSaeH/J5Z86N5fhZyopfdZZKxzUiBObp91hlyuJjJJQDKhOoS6uljIqtgfP779mNa7GH8m+IjRemV02b+0kJ1f7EZcZm0jNSfJcnRv7olq8PeoACNUlzNti2TIdcqtqUE8TF2tVJtX63vzaYf9iHH+keJq17BOt/uKQJZEZB2CTsQhrjfhodRfMPnTfZC9pnfhHqLxlPJ5rgRiY7ujA01CVqhRSYswftrsWoOl3HZGloanmGjaive9AaXY03o6dsMsSsIuXO2P3cVKFY6UhAGfpnGAyfYT2rXJEOvepjJxc4o5kFOqN8aBrlI=
